@@ -1,25 +1,16 @@
-//package mvc;
+package mvc
+
+import javax.swing._
+import java.beans._
 //
-//import javax.swing.*;
-//import java.beans.*;
-//
-//public class View extends JPanel implements PropertyChangeListener {
-//
-//
-//    protected Model model;
-//    public View(Model model){
-//        this.model = model;
-//        model.addPropertyChangeListener(this);
-//    }
-//    public void setModel(Model model){
-//        this.model.removePropertyChangeListener(this);
-//        this.model = model;
-//        this.model.initSupport();
-//        this.model.addPropertyChangeListener(this);
-//        //repaint();
-//    }
-//    @Override
-//    public void propertyChange(PropertyChangeEvent evt) {
-//        repaint();
-//    }
-//}
+class View(var curModel: Model) extends JPanel with PropertyChangeListener:
+  curModel.addPropertyChangeListener(this)
+
+  def setModel(newModel: Model): Unit =
+    this.curModel.removePropertyChangeListener(this)
+    this.curModel = newModel
+    this.curModel.initSupport()
+    this.curModel.addPropertyChangeListener(this)
+
+  def propertyChange(propertyChangeEvent: PropertyChangeEvent): Unit =
+    repaint()
